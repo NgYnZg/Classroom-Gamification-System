@@ -59,27 +59,56 @@ public:
 	//Constructor
 	StudentCLL(string cllName);
 
-	//Insert node at the head
+	/// <summary>
+	/// Creating a new Circular Linked List (CLL) node based on the student's name and inserting the node into the list
+	/// </summary>
+	/// <param name="studentname"></param>
 	void insertHead(string name);
 
-	//Insert node at the tail
+	/// <summary>
+	/// Creating a new student based on name and inserting the node into the list
+	/// </summary>
+	/// <param name="studentname"></param>
 	void insertTail(string name);
 
-	//Delete node using studentid
+	/// <summary>
+	/// Deletion of Circular Linked List (CLL) node based on student id
+	/// </summary>
+	/// <param name="studentid"></param>
+	/// <returns name="deletedStudent"></returns>
 	CLLnode* deleteNode(int studentid);
 
-	//Delete node using name
+	/// <summary>
+	/// Deletion of Circular Linked List (CLL) node based on student name
+	/// </summary>
+	/// <param name="studentid"></param>
+	/// <returns name="deletedStudent"></returns>
 	CLLnode* deleteNode(string name);
 
-	//Search node using studentid
+	/// <summary>
+	/// Searching Circular Linked List (CLL) node using studentid
+	/// </summary>
+	/// <param name="studentid"></param>
+	/// <returns>Returns a CLLnode that holds student node </returns>
 	CLLnode* search(int studentid);
 
-	//Search node using name
+	/// <summary>
+	/// Searching a Circular Linked List (CLL) node using name
+	/// </summary>
+	/// <param name="name"> Name of the Student</param>
+	/// <returns> Returns a CLLnode that holds student node </returns>
 	CLLnode* search(string name);
 
-	//Inserting student score
+	/// <summary>
+	/// Adding totalScore of the student that has answered or discared the question,
+	/// enqueue the question id into the answered queue of the student.
+	/// </summary>
+	/// <param name="current"> Current node of answering student </param>
+	/// <param name="score"> Scored points</param>
 	void score(CLLnode* current, int questionid, double score);
 
-	//Display list
+	/// <summary>
+	/// Displaying all students' name and total score
+	/// </summary>
 	void display();
 };

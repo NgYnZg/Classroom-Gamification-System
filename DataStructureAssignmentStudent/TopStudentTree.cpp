@@ -5,6 +5,11 @@ TopStudentTree::TopStudentTree(string treeName) {
     this->treeName = treeName;
 }
 
+TreeNode* TopStudentTree::getRoot() {
+    return root;
+}
+
+
 void TopStudentTree::insertNewNode(int sutdentid, string name, double totalScore) {
     TreeNode* newnode = new TreeNode();
     newnode->name = name;
@@ -17,6 +22,7 @@ void TopStudentTree::insertNewNode(int sutdentid, string name, double totalScore
     }
     insert(root, newnode);
 }
+
 
 void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
     if (newnode->totalScore < parent->totalScore) {
@@ -41,7 +47,7 @@ void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
             }
             insert(parent->left, newnode);
         }
-        else if (newnode->totalScore > parent->totalScore) {
+        else if (newnode->studentid > parent->studentid) {
             if (parent->right == NULL) {
                 parent->right = newnode;
                 return;

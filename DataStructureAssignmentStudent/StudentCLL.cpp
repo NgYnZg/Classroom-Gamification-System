@@ -38,10 +38,7 @@ CLLnode* StudentCLL::createNewNode(int studentid, string name) {
 	return newNode;
 }
 
-/// <summary>
-/// Creating a new Circular Linked List (CLL) node based on the student's name and inserting the node into the list
-/// </summary>
-/// <param name="studentname"></param>
+//Insert node at the head
 void StudentCLL::insertHead(string studentname) {
 	//Creating new node
 	CLLnode* newNode = createNewNode(this->size, studentname);
@@ -57,10 +54,8 @@ void StudentCLL::insertHead(string studentname) {
 	head = newNode;
 	tail->next = head;
 }
-/// <summary>
-/// Creating a new student based on name and inserting the node into the list
-/// </summary>
-/// <param name="studentname"></param>
+
+//Insert node at the tail
 void StudentCLL::insertTail(string studentname) {
 	//Creating new node
 	CLLnode* newNode = createNewNode(this->size, studentname);
@@ -77,11 +72,7 @@ void StudentCLL::insertTail(string studentname) {
 	tail->next = head;
 }
 
-/// <summary>
-/// Deletion of Circular Linked List (CLL) node based on student id
-/// </summary>
-/// <param name="studentid"></param>
-/// <returns name="deletedStudent"></returns>
+//Delete node using studentid
 CLLnode* StudentCLL::deleteNode(int studentid) {
 	CLLnode* prev, * current = head;
 
@@ -129,11 +120,7 @@ CLLnode* StudentCLL::deleteNode(int studentid) {
 	return new CLLnode;
 }
 
-/// <summary>
-/// Deletion of Circular Linked List (CLL) node based on student name
-/// </summary>
-/// <param name="studentid"></param>
-/// <returns name="deletedStudent"></returns>
+//Delete node using name
 CLLnode* StudentCLL::deleteNode(string name) {
 	CLLnode* prev, * current = head;
 
@@ -181,11 +168,7 @@ CLLnode* StudentCLL::deleteNode(string name) {
 	return new CLLnode;
 }
 
-/// <summary>
-/// Searching Circular Linked List (CLL) node using studentid
-/// </summary>
-/// <param name="studentid"></param>
-/// <returns>Returns a CLLnode that holds student node </returns>
+//Search node using studentid
 CLLnode* StudentCLL::search(int studentid) {
 	CLLnode* prev, * current = head;
 
@@ -211,11 +194,8 @@ CLLnode* StudentCLL::search(int studentid) {
 }
 
 
-/// <summary>
-/// Searching a Circular Linked List (CLL) node using name
-/// </summary>
-/// <param name="name"> Name of the Student</param>
-/// <returns> Returns a CLLnode that holds student node </returns>
+
+//Search node using name
 CLLnode* StudentCLL::search(string name) {
 	CLLnode* prev, * current;
 
@@ -238,28 +218,19 @@ CLLnode* StudentCLL::search(string name) {
 	return new CLLnode;
 }
 
-/// <summary>
-/// Adding totalScore of the student that has answered or discared the question,
-/// enqueue the question id into the answered queue of the student.
-/// </summary>
-/// <param name="current"> Current node of answering student </param>
-/// <param name="score"> Scored points</param>
+//Inserting student score
 void StudentCLL::score(CLLnode* current, int questionid, double score) {
-	cout << "Student " << current->student->name << " previous total score " << current->student->totalScore << endl;
 	current->student->totalScore += score;
 	current->student->answered->enqueue(questionid);
-	cout << "Student " << current->student->name << " after total score " << current->student->totalScore << endl;
 }
 
-
-/// <summary>
-/// Displaying all students' name and total score
-/// </summary>
+//Display list
 void StudentCLL::display() {
 	CLLnode* current = head;
 
 	cout << "Students: " << endl;
 	do {
+		cout << "Student ID: " << current->student->studentid<< endl;
 		cout << "Student Name: " << current->student->name << endl;
 		cout << "Total Score: " << current->student->totalScore << endl;
 
