@@ -9,28 +9,28 @@ StudentAnswered::StudentAnswered() {
 }
 
 
-Node* StudentAnswered::peek() {
+STQNode* StudentAnswered::peek() {
 	return this->front;
 }
 
 
-Node* StudentAnswered::createNewNode(int questionid) {
-	Node* newnode = new Node;
-	newnode->questionid = questionid;
-	newnode->next = nullptr;
-	return newnode;
+STQNode* StudentAnswered::createNewNode(int questionid) {
+	STQNode* newSTQNode = new STQNode;
+	newSTQNode->questionid = questionid;
+	newSTQNode->next = nullptr;
+	return newSTQNode;
 }
 
 
 void StudentAnswered::enqueue(int questionid) {
-	Node* newnode = createNewNode(questionid);
+	STQNode* newSTQNode = createNewNode(questionid);
 
 	if (front == nullptr) {
-		front = rear = newnode;
+		front = rear = newSTQNode;
 	}
 	else {
-		rear->next = newnode;
-		rear = newnode;
+		rear->next = newSTQNode;
+		rear = newSTQNode;
 	}
 	size++;
 
@@ -39,11 +39,11 @@ void StudentAnswered::enqueue(int questionid) {
 
 void StudentAnswered::dequeue() {
 	if (front == NULL) {
-		cout << "No node to remove from the front!!";
+		cout << "No STQNode to remove from the front!!";
 		return;
 	}
 
-	Node* temp = front;
+	STQNode* temp = front;
 	front = front->next;
 
 	if (front == NULL) {

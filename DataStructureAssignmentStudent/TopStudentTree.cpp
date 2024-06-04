@@ -1,6 +1,10 @@
 #include "TopStudentTree.h"
 #include <iostream>
 
+TopStudentTree::TopStudentTree() {
+    this->treeName = "";
+}
+
 TopStudentTree::TopStudentTree(string treeName) {
     this->treeName = treeName;
 }

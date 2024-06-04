@@ -127,12 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="answered.h" />
+    <ClInclude Include="DiscardedDeck.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Reader.h" />
+    <ClInclude Include="Search.h" />
     <ClInclude Include="StudentAnswered.h" />
     <ClInclude Include="StudentCLL.h" />
     <ClInclude Include="TopStudentTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DiscardedDeck.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="MainProgram.cpp" />
+    <ClCompile Include="Reader.cpp" />
     <ClCompile Include="StudentAnswered.cpp" />
     <ClCompile Include="StudentCLL.cpp" />
     <ClCompile Include="TopStudentTree.cpp" />

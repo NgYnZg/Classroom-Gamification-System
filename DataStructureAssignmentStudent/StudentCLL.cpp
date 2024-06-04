@@ -55,26 +55,10 @@ void StudentCLL::insertHead(string studentname) {
 	tail->next = head;
 }
 
-//Insert node at the tail
-void StudentCLL::insertTail(string studentname) {
-	//Creating new node
-	CLLnode* newNode = createNewNode(this->size, studentname);
-	size++;
 
-	//1. if no nodes in the CLL
-	if (this->head == NULL) {
-		this->head = this->tail = newNode;
-		return;
-	}
-	//2. if node exist in the CLL	steps: point tail.next to new node -> make newnode the new tail -> connect new tail.next to the head
-	tail->next = newNode;
-	tail = newNode;
-	tail->next = head;
-}
-
-//Delete node using studentid
-CLLnode* StudentCLL::deleteNode(int studentid) {
-	CLLnode* prev, * current = head;
+//Delete node from tail
+CLLnode* StudentCLL::deleteHead() {
+	CLLnode* current = head;
 
 	//If list have is empty
 	if (head == nullptr) {
@@ -82,42 +66,21 @@ CLLnode* StudentCLL::deleteNode(int studentid) {
 		return NULL;
 	}
 
-	//If head of the list is to be deleted
-	if (head->student->studentid == studentid) {
-		//If the list only contains one node
-		if (head == tail)
-		{
-			head = tail = nullptr;
-			current->next = nullptr;
-			size--;
-			return current;
-		}
-		//If the list contains more than one node
-		head = head->next;
-		tail->next = head;
+	//If the list only contains one node
+	if (head == tail){
+		head = tail = nullptr;
 		current->next = nullptr;
 		size--;
 		return current;
 	}
-
-	//Loop through the list to find the matched student node
-	prev = current;
-	current = current->next;
-	while (current != head) {
-		//Steps: search through the node to find the node with matched studentid
-		if (current->student->studentid == studentid) {
-			prev->next = current->next;
-			current->next = nullptr;
-			size--;
-			return current;
-		}
-		//Incrementing node index
-		prev = current;
-		current = current->next;
+	else {
+	//If the list contains more than one node
+	head = head->next;
+	tail->next = head;
+	current->next = nullptr;
+	size--;
+	return current;
 	}
-
-	cout << "Student id does not exist!!" << endl;
-	return new CLLnode;
 }
 
 //Delete node using name
@@ -231,8 +194,8 @@ void StudentCLL::display() {
 	cout << "Students: " << endl;
 	do {
 		cout << "Student ID: " << current->student->studentid<< endl;
-		cout << "Student Name: " << current->student->name << endl;
 		cout << "Total Score: " << current->student->totalScore << endl;
+		cout << "Student Name: " << current->student->name << endl;
 
 		current = current->next;
 	} while (current != head);
