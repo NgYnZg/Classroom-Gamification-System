@@ -45,6 +45,9 @@ void LinkedList::displayQuestions() const {
     }
 }
 
+Question1* LinkedList::peek() {
+    return this->head->question;
+}
 Question1* LinkedList::displayAndRemoveFirstQuestion() {
     if (!head) {
         cout << "No questions available." << endl;

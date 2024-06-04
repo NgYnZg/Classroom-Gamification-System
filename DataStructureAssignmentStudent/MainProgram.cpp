@@ -7,9 +7,12 @@
 #include "LinkedList.h"
 #include "Reader.h"
 
-using namespace std;
+
+
+
 
 void displayMenu() {
+    cout << "_________________________________________________________________________________________________________" << endl;
     cout << "1. View and Answer Questions from Unanswered Deck" << endl;
     cout << "2. View and Answer Questions from Discarded Deck" << endl;
     cout << "3. Display Answered Questions" << endl;
@@ -17,191 +20,61 @@ void displayMenu() {
     cout << "5. Exit" << endl;
 }
 
+
 void displayHome() {
+    cout << "_________________________________________________________________________________________________________" << endl;
     cout << "1. Lecturer" << endl;
     cout << "2. Student" << endl;
-    cout << "3. Exit" << endl;
+    cout << "3. Exit System" << endl;
 }
 
 void displayLectureHome() {
+    cout << "_________________________________________________________________________________________________________" << endl;
     cout << "1. Register Student" << endl;
-    cout << "2. Leaderboard" << endl;
-    cout << "3. Winner Chart" << endl;
-    cout << "4. Exit" << endl;
+    cout << "2. Display Students" << endl;
+    cout << "3. Start the game" << endl;
+    cout << "4. Leaderboard" << endl;
+    cout << "5. Winner Chart" << endl;
+    cout << "6. Exit" << endl;
 }
-void displayRegisteredStudent() {
+void displayRegisteredStudentOption() {
+    cout << "_________________________________________________________________________________________________________" << endl;
     cout << "1. Register More Student" << endl;
-    cout << "2. Delete Student" << endl;
-    cout << "3. Exit" << endl;
-}
-
-int main() {
-
-    StudentCLL* participantList = new StudentCLL("Participants");
-
-    // select role
-    // 1. lecturer
-    // 1.1 register student -> (register more, start the game)
-    // 1.2 start the game
-    // 1.2.1 loop through students
-    // 
-    // 1.3 leaderboard
-    // 1.4 winner chart
-    // 
-    // 2. student (name)
-    // 2.1 show in winner
-    // 2.2 show answered results (Optional)
-
-    while (exit) {
-        bool run = true;
-        int choice;
-        displayHome();
-        cout << "Enter your choice: ";
-        cin >> choice;
-        cin.ignore();
-        switch (choice)
-        {
-        case 1:
-
-        case 2:
-
-        case 3:
-            run = false;
-            break;
-        default:
-            cout << "Invalid input!!" << endl;
-            break;
-        }
-    }
-}
-
-void lecturerHomeInterface() {
-    bool run = true;
-    while (run){
-        int choice;
-        displayLectureHome();
-        cout << "Enter your choice: ";
-        cin >> choice;
-        cin.ignore();
-        switch (choice)
-        {
-        case 1:
-
-        case 2:
-
-        case 3:
-            run = false;
-            break;
-        default:
-            cout << "Invalid input!!" << endl;
-            break;
-        }
-    }
-}
-
-void studentHomeInterface() {
-    bool run = true;
-    while (run) {
-        cout << "Enter student name: ";
-        string student;
-        getline(cin, student);
-        student= Reader::toLowercase(student);
-
-        cin.ignore();
-
-    } 
-}
-
-CLLnode* registerStudentInterface(CLLnode* studentList) {
-    bool run = true;
-    while(run) {
-
-        cout << "Enter student name: ";
-        string student;
-        getline(cin, student);
-        student = Reader::toLowercase(student);
-        
-        displayRegisteredStudent();
-        int choice;
-        cout << "Enter your choice: ";
-        cin >> choice;
-        cin.ignore();
-        switch (choice)
-        {
-        case 1: // Register more student
-
-        case 2: // Delete student
-
-        case 3: // Start the game
-
-        case 4: // Exit
-            run = false;
-            break;
-        default:
-            cout << "Invalid input!!" << endl;
-            break;
-        }
-        
-    }
-}
-
-//Inserting Circular Linked List into Binary Search Tree
-void insertCLLintoBST() {
-
+    cout << "2. Delete Last Created Student" << endl;
+    cout << "3. Back" << endl;
 }
 
 
-void leaderboard(TreeNode* fullBST) {
-    
-}
-
-void winnerChart(TreeNode* winnerBST) {
-
-}
-
-//Search for student result ( in winner chart?, total score, question answered)
-void studentResult() {
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-void gameInterface(){
+void gameInterface(StudentCLL* participantList) {
+    //Initializing round number
+    int round = 0;
     //Initializing structures
     LinkedList* unansweredDeck = new LinkedList();
     AnsweredStack* answeredStack = new AnsweredStack();
     DiscardedDeck* discardedDeck = new DiscardedDeck();
     Reader::readQuestionsFromFile(unansweredDeck);
+    CLLnode* currentStudent = participantList->getHead();
 
-    int choice;
-    do {
+    while (round < 3 && unansweredDeck->peek() != NULL){
+
+        int studentid = currentStudent->student->studentid;
+        int choice;
+
         displayMenu();
+        cout << "Student " << currentStudent->student->name << endl;
         cout << "Enter your choice: ";
         cin >> choice;
         cin.ignore();
         switch (choice) {
         case 1: {
             Question1* q = unansweredDeck->displayAndRemoveFirstQuestion();
-            cout << "Do you want to answer this question? (yes/no): ";
             string answerChoice;
-            getline(cin, answerChoice);
-            answerChoice = Reader::toLowercase(answerChoice);
+            do{
+                cout << "Do you want to answer this question? (yes/no): ";
+                getline(cin, answerChoice);
+                answerChoice = Reader::toLowercase(answerChoice);
+            } while(!(answerChoice == "yes" || answerChoice == "y" || answerChoice == "no" || answerChoice == "n"));
             if (answerChoice == "yes" || answerChoice == "y") {
-
-                cout << "Enter your student ID: ";
-                int studentid;
-                cin >> studentid;
-                cin.ignore();
-
                 cout << "Enter your answer: ";
                 string studentanswer;
                 getline(cin, studentanswer);
@@ -213,7 +86,7 @@ void gameInterface(){
             }
             else if (answerChoice == "no" || answerChoice == "n") {
                 // Discard the question
-                Question2 discardedCard(q->question, true, 0, q->questionid, q->answer, q->questionscore);
+                Question2* discardedCard = new Question2(q->question, true, 0, q->questionid, q->answer, q->questionscore);
                 discardedDeck->discardCard(discardedCard);
             }
             break;
@@ -226,7 +99,7 @@ void gameInterface(){
             cin >> index;
             cin.ignore();
             try {
-                Question2 cardToAnswer = discardedDeck->selectDiscardedCard(index);
+                Question2* cardToAnswer = discardedDeck->selectDiscardedCard(index);
                 cout << "Enter your student ID: ";
                 int studentid;
                 cin >> studentid;
@@ -234,9 +107,9 @@ void gameInterface(){
                 cout << "Enter your answer: ";
                 string studentanswer;
                 getline(cin, studentanswer);
-                Question3 q(cardToAnswer.question, cardToAnswer.answer, cardToAnswer.questionid, cardToAnswer.questionscore);
-                recordAnswer(&q, studentid, studentanswer, true);
-                answeredStack->push(&q);
+                Question3* q = new Question3(cardToAnswer->question, cardToAnswer->answer, cardToAnswer->questionid, cardToAnswer->questionscore);
+                recordAnswer(q, studentid, studentanswer, true);
+                answeredStack->push(q);
             }
             catch (const out_of_range& e) {
                 cout << e.what() << endl;
@@ -263,12 +136,170 @@ void gameInterface(){
         default:
             cout << "Invalid choice. Please try again." << endl;
         }
-    } while (choice != 8);
+        currentStudent = currentStudent->next;
+        round++;
+    }
+}
+
+//Inserting Circular Linked List into Binary Search Tree
+TopStudentTree* insertCLLintoBST(StudentCLL* participationList) {
+    return new TopStudentTree();
+}
+
+
+void leaderboard(TopStudentTree* fullBST) {
+
+}
+
+void winnerChart(TopStudentTree* winnerBST) {
+
+}
+
+void registerStudentInterface(StudentCLL* participantList) {
+    bool run = true, runInner;
+    while(run){
+        cout << "_________________________________________________________________________________________________________" << endl;
+        cout << "Enter student name: ";
+        string studentname;
+        getline(cin, studentname);
+        studentname = Reader::toLowercase(studentname);
+        participantList->insertHead(studentname);
+        runInner = true;
+        while (runInner) {
+            displayRegisteredStudentOption();
+            int choice;
+            cout << "_________________________________________________________________________________________________________" << endl;
+            cout << "Enter your choice: ";
+            cin >> choice;
+            cin.ignore();
+            switch (choice)
+            {
+            case 1: // Register more student
+                runInner = false;
+                break;
+            case 2: // Delete last created student
+                participantList->deleteHead();
+                break;
+            case 3: // Back
+                runInner = false;
+                run = false;
+                break;
+            default:
+                cout << "Invalid input!!" << endl;
+                break;
+            }
+        }
+    }
+
+}
+
+
+void lecturerHomeInterface(StudentCLL* participantList) {
+    bool run = true;
+    TopStudentTree* studentBST;
+    while (run) {
+        int choice;
+        displayLectureHome(); //Register student, display students, start the game, leaderboard, winner chart, exit
+        cout << endl;
+        cout << "_________________________________________________________________________________________________________" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore();
+        switch (choice)
+        {
+        case 1:
+            registerStudentInterface(participantList); //Register more student, delete last created student
+            break;
+        case 2: // Display students
+            participantList->display();
+            break;
+        case 3:
+            gameInterface(participantList); // Start the game
+            break;
+        case 4:
+            studentBST = insertCLLintoBST(participantList); 
+            leaderboard(studentBST); //leaderboard
+            break;
+        case 5:
+            studentBST = insertCLLintoBST(participantList); 
+            winnerChart(studentBST); //winner chart
+            break;
+        case 6: //exit
+            run = false;
+            break;
+        default:
+            cout << "Invalid input!!" << endl;
+            break;
+        }
+    }
+}
+
+
+//Search for student result ( in winner chart?, total score, question answered)
+void studentResult() {
+
+}
+
+void studentHomeInterface(StudentCLL* participationList) {
+    bool run = true;
+    while (run) {
+        cout << "Enter student name: ";
+        string student;
+        getline(cin, student);
+        student = Reader::toLowercase(student);
+
+
+    }
 }
 
 
 
-/*
+int main() {
+
+    StudentCLL* participantList = new StudentCLL("Participants");
+
+    // select role
+    // 1. lecturer
+    // 1.1 register student -> (register more, start the game)
+    // 1.2 start the game
+    // 1.2.1 loop through students
+    // 
+    // 1.3 leaderboard
+    // 1.4 winner chart
+    // 
+    // 2. student (name)
+    // 2.1 show in winner
+    // 2.2 show answered results (Optional)
+    bool run = true;
+    while (run) {
+        int choice;
+        displayHome();
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore();
+        switch (choice)
+        {
+        case 1: //Selected Lecture
+            lecturerHomeInterface(participantList);
+            break;
+        case 2: //Selected Student
+            studentHomeInterface(participantList);
+            break;
+        case 3:
+            run = false;
+            break;
+        default:
+            cout << "Invalid input!!" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
+
+
+
+/* Testing for Student Lists
 
 //Initializing a Circular Linked List called tutorial1
 StudentCLL* tutorial1 = new StudentCLL("tutorial1");
@@ -325,3 +356,4 @@ do
 
 
 winnerBST->inorder(winnerBST->getRoot());
+*/

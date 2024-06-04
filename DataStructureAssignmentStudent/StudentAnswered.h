@@ -4,17 +4,17 @@
 
 using namespace std;
 
-struct Node {
+struct STQNode {
 	int questionid;
-	Node* next;
+	STQNode* next;
 };
 
 //Queue Structure (FIFO)
 class StudentAnswered {
 	int size;
-	Node *front, *rear;
+	STQNode *front, *rear;
 
-	Node* createNewNode(int questionid);
+	STQNode* createNewNode(int questionid);
 public:
 	StudentAnswered();
 
@@ -35,7 +35,7 @@ public:
 	/// Peeking at the front of the queue
 	/// </summary>
 	/// <returns> Returns a question id node</returns>
-	Node* peek();
+	STQNode* peek();
 
 	~StudentAnswered();
 };

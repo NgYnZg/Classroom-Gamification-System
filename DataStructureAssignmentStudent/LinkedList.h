@@ -38,6 +38,7 @@ public:
     ~LinkedList();
     void addQuestion(Question1* q);  // Add question to end of the list
     void displayQuestions() const;        // Display all questions
+    Question1* peek();
     Question1* displayAndRemoveFirstQuestion(); // Display and remove the first question
     static void readQuestionsFromFile(const string& filename, LinkedList& list);
 };

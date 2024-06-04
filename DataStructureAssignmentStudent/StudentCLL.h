@@ -46,14 +46,6 @@ public:
 	int getSize() {
 		return size;
 	}
-	//Set head node
-	void setHead(CLLnode* head) {
-		this->head = head;
-	}
-	//Set tail node
-	void setTail(CLLnode* tail) {
-		this->tail = tail;
-	}
 
 	//Constructor
 	StudentCLL(string cllName);
@@ -65,17 +57,10 @@ public:
 	void insertHead(string name);
 
 	/// <summary>
-	/// Creating a new student based on name and inserting the node into the list
+	/// Deletion of Circular Linked List (CLL) node at the head
 	/// </summary>
-	/// <param name="studentname"></param>
-	void insertTail(string name);
-
-	/// <summary>
-	/// Deletion of Circular Linked List (CLL) node based on student id
-	/// </summary>
-	/// <param name="studentid"></param>
 	/// <returns name="deletedStudent"></returns>
-	CLLnode* deleteNode(int studentid);
+	CLLnode* deleteHead();
 
 	/// <summary>
 	/// Deletion of Circular Linked List (CLL) node based on student name

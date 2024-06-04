@@ -10,11 +10,11 @@ Question2::Question2(const string& q, bool d, int dsid, int qid, const string& a
     questionscore = qs;
 }
 
-Node::Node(Question2 c) : card(c), next(nullptr), prev(nullptr) {}
+Node::Node(Question2* c) : card(c), next(nullptr), prev(nullptr) {}
 
 DiscardedDeck::DiscardedDeck() : head(nullptr), tail(nullptr) {}
 
-Node* DiscardedDeck::merge(Node* left, Node* right, const function<bool(const Question2&, const Question2&)>& comp) {
+Node* DiscardedDeck::merge(Node* left, Node* right, const function<bool(const Question2*, const Question2*)>& comp) {
     if (!left) return right;
     if (!right) return left;
     Node* result = nullptr;
@@ -33,7 +33,7 @@ Node* DiscardedDeck::merge(Node* left, Node* right, const function<bool(const Qu
     return result;
 }
 
-Node* DiscardedDeck::mergeSort(Node* head, const function<bool(const Question2&, const Question2&)>& comp) {
+Node* DiscardedDeck::mergeSort(Node* head, const function<bool(const Question2*, const Question2*)>& comp) {
     if (!head || !head->next) return head;
     Node* slow = head;
     Node* fast = head->next;
@@ -57,7 +57,7 @@ void DiscardedDeck::updateTail() {
     }
 }
 
-void DiscardedDeck::discardCard(const Question2& card) {
+void DiscardedDeck::discardCard(Question2* card) {
     Node* newNode = new Node(card);
     if (tail == nullptr) {
         head = tail = newNode;
@@ -73,13 +73,13 @@ void DiscardedDeck::displayDiscardedCards() const {
     Node* current = head;
     int index = 1;
     while (current != nullptr) {
-        cout << index << ". " << current->card.question << " (Score: " << current->card.questionscore << ")\n";
+        cout << index << ". " << current->card->question << " (Score: " << current->card->questionscore << ")\n";
         current = current->next;
         index++;
     }
 }
 
-Question2 DiscardedDeck::selectDiscardedCard(int index) {
+Question2* DiscardedDeck::selectDiscardedCard(int index) {
     if (index < 1) {
         throw out_of_range("Invalid index");
     }
@@ -92,7 +92,7 @@ Question2 DiscardedDeck::selectDiscardedCard(int index) {
     if (current == nullptr) {
         throw out_of_range("Invalid index");
     }
-    Question2 selectedCard = current->card;
+    Question2* selectedCard = current->card;
     if (current->prev != nullptr) {
         current->prev->next = current->next;
     }
@@ -119,8 +119,8 @@ DiscardedDeck::~DiscardedDeck() {
 }
 
 void DiscardedDeck::sortScore() {
-    head = mergeSort(head, [](const Question2& a, const Question2& b) {
-        return a.questionscore > b.questionscore;
+    head = mergeSort(head, [](const Question2* a, const Question2* b) {
+        return a->questionscore > b->questionscore;
         });
     updateTail();
 }
@@ -130,9 +130,9 @@ void DiscardedDeck::searchKeyword(const string& keyword) const {
     int index = 1;
     bool found = false;
     while (current != nullptr) {
-        if (current->card.question.find(keyword) != string::npos ||
-            current->card.answer.find(keyword) != string::npos) {
-            cout << index << ". " << current->card.question << " (Score: " << current->card.questionscore << ")\n";
+        if (current->card->question.find(keyword) != string::npos ||
+            current->card->answer.find(keyword) != string::npos) {
+            cout << index << ". " << current->card->question << " (Score: " << current->card->questionscore << ")\n";
             found = true;
         }
         current = current->next;
