@@ -13,13 +13,13 @@ class TopStudentTree {
     string treeName;
     TreeNode* root;
 
+    void answered_questions(Student* student);
     void insert(TreeNode* parent, TreeNode* newnode);
 
 public:
 
     TopStudentTree();
     TopStudentTree(string treeName);
-
     TreeNode* getRoot();
 
     /// <summary>
@@ -34,6 +34,6 @@ public:
     /// Printing the tree in an inorder traversal
     /// </summary>
     /// <param name="current">Root of the tree; </param>
-    void inorder(TreeNode* current);
+    void reverse_inorder(TreeNode* current);
     ~TopStudentTree();
 };

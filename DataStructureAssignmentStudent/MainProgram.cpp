@@ -141,11 +141,19 @@ void gameInterface(StudentCLL* participantList) {
 
 //Inserting Circular Linked List into Binary Search Tree
 TopStudentTree* insertCLLintoBST(StudentCLL* participationList) {
-    return new TopStudentTree();
+    CLLnode* current = participationList->getHead();
+    TopStudentTree* winnerBST = new TopStudentTree();
+    do
+    {
+        winnerBST->insertNewNode(current->student);
+        current = current->next;
+    } while (current != participationList->getHead());
+    return winnerBST;
 }
 
 
-void leaderboard(TopStudentTree* fullBST) {
+void leaderboard(TopStudentTree* winnerBST) {
+    ;
 
 }
 

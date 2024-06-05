@@ -63,19 +63,28 @@ void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
     }
 }
 
-void TopStudentTree::inorder(TreeNode* current) {
+void TopStudentTree::answered_questions(Student* student) {
+    
+}
+
+void TopStudentTree::reverse_inorder(TreeNode* current) {
 
     if (current == NULL)
         return;
 
     // Traverse left subtree
-    inorder(current->left);
+    reverse_inorder(current->left);
 
     // Visit node
-    cout << current->student->name << " ";
+    cout << "\t---------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\t" << "|" << "Student ID" << "\t|" << "Student Name" << "\t|" << "Total Score" << "\t|" << "Questions" << "\t|" << endl;
+
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\t" << "|" << current->student->studentid << "\t|" << current->student->name<< "\t|" << current->student->name << "\t|" << current->student->name << "\t";
+
 
     // Traverse right subtree
-    inorder(current->right);
+    reverse_inorder(current->right);
 
 }
 
