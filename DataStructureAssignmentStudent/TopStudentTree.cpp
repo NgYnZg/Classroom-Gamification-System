@@ -2,6 +2,8 @@
 #include <iostream>
 #include "StudentCLL.h"
 
+using namespace std;
+
 TopStudentTree::TopStudentTree() {
     this->treeName = "";
 }
