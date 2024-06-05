@@ -81,8 +81,9 @@ void gameInterface(StudentCLL* participantList) {
 
 
                 Question3* q2 = new Question3(q->question, q->answer, q->questionid, q->questionscore);
-                recordAnswer(q2, studentid, studentanswer, false);
+                int scored = recordAnswer(q2, studentid, studentanswer, false);
                 answeredStack->push(q2);
+                currentStudent->score(q->questionid, scored);
             }
             else if (answerChoice == "no" || answerChoice == "n") {
                 // Discard the question
@@ -100,16 +101,13 @@ void gameInterface(StudentCLL* participantList) {
             cin.ignore();
             try {
                 Question2* cardToAnswer = discardedDeck->selectDiscardedCard(index);
-                cout << "Enter your student ID: ";
-                int studentid;
-                cin >> studentid;
-                cin.ignore();
                 cout << "Enter your answer: ";
                 string studentanswer;
                 getline(cin, studentanswer);
                 Question3* q = new Question3(cardToAnswer->question, cardToAnswer->answer, cardToAnswer->questionid, cardToAnswer->questionscore);
-                recordAnswer(q, studentid, studentanswer, true);
+                int scored = (q, studentid, studentanswer, true);
                 answeredStack->push(q);
+                currentStudent->score(q->questionid, scored);
             }
             catch (const out_of_range& e) {
                 cout << e.what() << endl;
@@ -137,7 +135,9 @@ void gameInterface(StudentCLL* participantList) {
             cout << "Invalid choice. Please try again." << endl;
         }
         currentStudent = currentStudent->next;
-        round++;
+
+        if (currentStudent == participantList->getHead())
+            round++;
     }
 }
 
