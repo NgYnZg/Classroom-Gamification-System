@@ -18,7 +18,7 @@ struct Question3
 
 	Question3(string q, string ans, int qid, int qscore) {
 		this->question = q;
-		this->discarded = false;
+		this->discarded= NULL;
 		this->discardedstudentid = -1;
 		this->questionid = qid;
 		this->answer = ans;
@@ -40,6 +40,10 @@ public:
 	void push(Question3* q) {
 		q->next = top;
 		top = q;
+	}
+
+	Question3* peek() {
+		return top;
 	}
 
 	Question3* pop() {
@@ -80,6 +84,7 @@ public:
 int recordAnswer(Question3* q, int studentid, string studentanswer, bool discarded) {
 	q->studentid = studentid;
 	q->studentanswer = studentanswer;
+	q->discarded = discarded;
 
 	// Check if the answer is correct
 	if (q->answer == studentanswer) {

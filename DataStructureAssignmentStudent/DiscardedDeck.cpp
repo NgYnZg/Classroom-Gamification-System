@@ -1,7 +1,7 @@
 #include "DiscardedDeck.h"
 using namespace std;
 
-Question2::Question2(const string& q, bool d, int dsid, int qid, const string& a, int qs) {
+Question2::Question2(const string q, bool d, int dsid, int qid, const string a, int qs) {
     question = q;
     discarded = d;
     discardedstudentid = dsid;

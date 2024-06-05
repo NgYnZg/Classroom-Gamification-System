@@ -13,7 +13,6 @@ class TopStudentTree {
     string treeName;
     TreeNode* root;
 
-    void answered_questions(Student* student);
     void insert(TreeNode* parent, TreeNode* newnode);
 
 public:

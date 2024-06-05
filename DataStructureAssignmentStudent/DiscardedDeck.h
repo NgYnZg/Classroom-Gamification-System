@@ -13,7 +13,7 @@ struct Question2 {
     string answer;
     int questionscore;
 
-    Question2(const string& q, bool d = true, int dsid = 0, int qid = 0, const string& a = "", int qs = 0);
+    Question2(string q, bool d = true, int dsid = 0, int qid = 0,  string a = "", int qs = 0);
 };
 
 struct Node {

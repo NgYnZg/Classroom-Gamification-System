@@ -6,7 +6,7 @@
 #include "answered.h"
 #include "LinkedList.h"
 #include "Reader.h"
-
+#include "Search.h"
 
 
 
@@ -45,7 +45,7 @@ void displayRegisteredStudentOption() {
 
 
 
-void gameInterface(StudentCLL* participantList) {
+Search* gameInterface(StudentCLL* participantList) {
     //Initializing round number
     int round = 0;
     //Initializing structures
@@ -137,6 +137,11 @@ void gameInterface(StudentCLL* participantList) {
             round++;
 
     }
+
+    cout << "Game ended. " << endl;
+    unansweredDeck->~LinkedList();
+    Search* search = new Search(answeredStack, participantList);
+    return search;
 }
 
 //Inserting Circular Linked List into Binary Search Tree
@@ -153,8 +158,7 @@ TopStudentTree* insertCLLintoBST(StudentCLL* participationList) {
 
 
 void leaderboard(TopStudentTree* winnerBST) {
-    ;
-
+    
 }
 
 void winnerChart(TopStudentTree* winnerBST) {
@@ -201,7 +205,10 @@ void registerStudentInterface(StudentCLL* participantList) {
 }
 
 
-void lecturerHomeInterface(StudentCLL* participantList) {
+Search* lecturerHomeInterface() {
+
+    StudentCLL* participantList = new StudentCLL("Participants");
+    Search* searchList = new Search();
     bool run = true;
     TopStudentTree* studentBST;
     while (run) {
@@ -221,7 +228,7 @@ void lecturerHomeInterface(StudentCLL* participantList) {
             participantList->display();
             break;
         case 3:
-            gameInterface(participantList); // Start the game
+            searchList = gameInterface(participantList); // Start the game
             break;
         case 4:
             studentBST = insertCLLintoBST(participantList); 
@@ -239,31 +246,34 @@ void lecturerHomeInterface(StudentCLL* participantList) {
             break;
         }
     }
+    return searchList;
 }
 
 
-//Search for student result ( in winner chart?, total score, question answered)
-void studentResult() {
-
-}
-
-void studentHomeInterface(StudentCLL* participationList) {
-    bool run = true;
-    while (run) {
-        cout << "Enter student name: ";
-        string student;
-        getline(cin, student);
-        student = Reader::toLowercase(student);
-
-
+void studentHomeInterface(Search* search) {
+    if (search == NULL) {
+        int choice = 0;
+        while (choice != 1) {
+            cout << "Students Not Registered!!" << endl;
+            cout << "Enter 1 to Exit";
+            cin >> choice;
+            cin.ignore();
+            cout << "_________________________________________________________________________________________________________" << endl;
+        }
+        return;
     }
+    cout << "Enter student id: ";
+    int studentid;
+    cin >> studentid;
+    cin.ignore();
+    search->searchStudent(studentid);
+
 }
 
 
 
 int main() {
 
-    StudentCLL* participantList = new StudentCLL("Participants");
 
     // select role
     // 1. lecturer
@@ -277,6 +287,7 @@ int main() {
     // 2. student (name)
     // 2.1 show in winner
     // 2.2 show answered results (Optional)
+    Search* searchList = new Search();
     bool run = true;
     while (run) {
         int choice;
@@ -287,10 +298,10 @@ int main() {
         switch (choice)
         {
         case 1: //Selected Lecture
-            lecturerHomeInterface(participantList);
+            searchList = lecturerHomeInterface();
             break;
         case 2: //Selected Student
-            studentHomeInterface(participantList);
+            studentHomeInterface(searchList);
             break;
         case 3:
             run = false;
