@@ -18,14 +18,15 @@ struct Student {
 struct CLLnode {
 	Student* student;
 	CLLnode* next;
-
 	CLLnode();
 	CLLnode(Student* student);
+
 
 	/// <summary>
 	/// Adding totalScore of the student that has answered or discared the question,
 	/// enqueue the question id into the answered queue of the student.
 	/// </summary>
+  /// <param name="questionid"></param>
 	/// <param name="score"> Scored points</param>
 	void score(int questionid, int score);
 };
@@ -90,6 +91,7 @@ public:
 	/// <param name="name"> Name of the Student</param>
 	/// <returns> Returns a CLLnode that holds student node </returns>
 	CLLnode* search(string name);
+
 
 	/// <summary>
 	/// Displaying all students' name and total score

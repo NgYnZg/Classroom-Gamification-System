@@ -94,5 +94,6 @@ int recordAnswer(Question3* q, int studentid, string studentanswer, bool discard
 	else {
 		q->studentscore = 0;
 	}
+
 	return q->questionscore;
 }

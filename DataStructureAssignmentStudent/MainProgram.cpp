@@ -17,7 +17,6 @@ void displayMenu() {
     cout << "2. View and Answer Questions from Discarded Deck" << endl;
     cout << "3. Display Answered Questions" << endl;
     cout << "4. Search Discarded Questions by Keyword" << endl;
-    cout << "5. Exit" << endl;
 }
 
 
@@ -45,6 +44,7 @@ void displayRegisteredStudentOption() {
 }
 
 
+
 void gameInterface(StudentCLL* participantList) {
     //Initializing round number
     int round = 0;
@@ -54,9 +54,8 @@ void gameInterface(StudentCLL* participantList) {
     DiscardedDeck* discardedDeck = new DiscardedDeck();
     Reader::readQuestionsFromFile(unansweredDeck);
     CLLnode* currentStudent = participantList->getHead();
-
+    
     while (round < 3 && unansweredDeck->peek() != NULL){
-
         int studentid = currentStudent->student->studentid;
         int choice;
 
@@ -105,7 +104,8 @@ void gameInterface(StudentCLL* participantList) {
                 string studentanswer;
                 getline(cin, studentanswer);
                 Question3* q = new Question3(cardToAnswer->question, cardToAnswer->answer, cardToAnswer->questionid, cardToAnswer->questionscore);
-                int scored = (q, studentid, studentanswer, true);
+
+                int scored = recordAnswer(q, studentid, studentanswer, true);
                 answeredStack->push(q);
                 currentStudent->score(q->questionid, scored);
             }
@@ -128,16 +128,14 @@ void gameInterface(StudentCLL* participantList) {
             discardedDeck->searchKeyword(keyword);
             break;
         }
-        case 5:
-            cout << "Exiting the game..." << endl;
-            break;
         default:
             cout << "Invalid choice. Please try again." << endl;
         }
+      
         currentStudent = currentStudent->next;
-
         if (currentStudent == participantList->getHead())
             round++;
+
     }
 }
 
@@ -165,6 +163,7 @@ void registerStudentInterface(StudentCLL* participantList) {
         studentname = Reader::toLowercase(studentname);
         participantList->insertHead(studentname);
         runInner = true;
+
         while (runInner) {
             displayRegisteredStudentOption();
             int choice;

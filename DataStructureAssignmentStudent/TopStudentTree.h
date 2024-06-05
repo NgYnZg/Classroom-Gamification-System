@@ -29,7 +29,7 @@ public:
     /// <param name="sutdentid"></param>
     /// <param name="name"></param>
     /// <param name="totalScore"></param>
-    void insertNewNode(int studentid, string name, double totalScore);
+    void insertNewNode(Student* student);
 
     /// <summary>
     /// Printing the tree in an inorder traversal
