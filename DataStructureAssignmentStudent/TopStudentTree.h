@@ -1,12 +1,11 @@
 #pragma once
+#include "StudentCLL.h"
 #include <string>
 
 using namespace std;
 
 struct TreeNode {
-    string name;
-    int studentid;
-    double totalScore;
+    Student* student;
     TreeNode* left, * right;
 };
 
