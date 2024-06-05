@@ -1,5 +1,6 @@
 #include "TopStudentTree.h"
 #include <iostream>
+#include "StudentCLL.h"
 
 TopStudentTree::TopStudentTree() {
     this->treeName = "";
@@ -14,10 +15,9 @@ TreeNode* TopStudentTree::getRoot() {
 }
 
 
-void TopStudentTree::insertNewNode(int sutdentid, string name, double totalScore) {
+void TopStudentTree::insertNewNode(Student* student) {
     TreeNode* newnode = new TreeNode();
-    newnode->name = name;
-    newnode->totalScore = totalScore;
+    newnode->student = student;
     newnode->left = newnode->right = nullptr;
 
     if (root == NULL) {
@@ -29,14 +29,14 @@ void TopStudentTree::insertNewNode(int sutdentid, string name, double totalScore
 
 
 void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
-    if (newnode->totalScore < parent->totalScore) {
+    if (newnode->student->totalScore < parent->student->totalScore) {
         if (parent->left == NULL) {
             parent->left = newnode;
             return;
         }
         insert(parent->left, newnode);
     }
-    else if (newnode->totalScore > parent->totalScore) {
+    else if (newnode->student->totalScore > parent->student->totalScore) {
         if (parent->right == NULL) {
             parent->right = newnode;
             return;
@@ -44,14 +44,14 @@ void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
         insert(parent->right, newnode);
     }
     else {
-        if (newnode->studentid < parent->studentid) {
+        if (newnode->student->studentid < parent->student->studentid) {
             if (parent->left == NULL) {
                 parent->left = newnode;
                 return;
             }
             insert(parent->left, newnode);
         }
-        else if (newnode->studentid > parent->studentid) {
+        else if (newnode->student->studentid > parent->student->studentid) {
             if (parent->right == NULL) {
                 parent->right = newnode;
                 return;
@@ -70,7 +70,7 @@ void TopStudentTree::inorder(TreeNode* current) {
     inorder(current->left);
 
     // Visit node
-    cout << current->name << " ";
+    cout << current->student->name << " ";
 
     // Traverse right subtree
     inorder(current->right);

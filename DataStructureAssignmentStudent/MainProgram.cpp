@@ -17,7 +17,6 @@ void displayMenu() {
     cout << "2. View and Answer Questions from Discarded Deck" << endl;
     cout << "3. Display Answered Questions" << endl;
     cout << "4. Search Discarded Questions by Keyword" << endl;
-    cout << "5. Exit" << endl;
 }
 
 
@@ -45,6 +44,7 @@ void displayRegisteredStudentOption() {
 }
 
 
+
 void gameInterface(StudentCLL* participantList) {
     //Initializing round number
     int round = 0;
@@ -54,9 +54,8 @@ void gameInterface(StudentCLL* participantList) {
     DiscardedDeck* discardedDeck = new DiscardedDeck();
     Reader::readQuestionsFromFile(unansweredDeck);
     CLLnode* currentStudent = participantList->getHead();
-
+    
     while (round < 3 && unansweredDeck->peek() != NULL){
-
         int studentid = currentStudent->student->studentid;
         int choice;
 
@@ -81,8 +80,9 @@ void gameInterface(StudentCLL* participantList) {
 
 
                 Question3* q2 = new Question3(q->question, q->answer, q->questionid, q->questionscore);
-                recordAnswer(q2, studentid, studentanswer, false);
+                int scored = recordAnswer(q2, studentid, studentanswer, false);
                 answeredStack->push(q2);
+                currentStudent->score(q->questionid, scored);
             }
             else if (answerChoice == "no" || answerChoice == "n") {
                 // Discard the question
@@ -100,16 +100,13 @@ void gameInterface(StudentCLL* participantList) {
             cin.ignore();
             try {
                 Question2* cardToAnswer = discardedDeck->selectDiscardedCard(index);
-                cout << "Enter your student ID: ";
-                int studentid;
-                cin >> studentid;
-                cin.ignore();
                 cout << "Enter your answer: ";
                 string studentanswer;
                 getline(cin, studentanswer);
                 Question3* q = new Question3(cardToAnswer->question, cardToAnswer->answer, cardToAnswer->questionid, cardToAnswer->questionscore);
-                recordAnswer(q, studentid, studentanswer, true);
+                int scored = recordAnswer(q, studentid, studentanswer, true);
                 answeredStack->push(q);
+                currentStudent->score(q->questionid, scored);
             }
             catch (const out_of_range& e) {
                 cout << e.what() << endl;
@@ -130,14 +127,13 @@ void gameInterface(StudentCLL* participantList) {
             discardedDeck->searchKeyword(keyword);
             break;
         }
-        case 5:
-            cout << "Exiting the game..." << endl;
-            break;
         default:
             cout << "Invalid choice. Please try again." << endl;
         }
         currentStudent = currentStudent->next;
-        round++;
+        if (currentStudent == participantList->getTail()) {
+            round++;
+        }
     }
 }
 
@@ -165,6 +161,7 @@ void registerStudentInterface(StudentCLL* participantList) {
         studentname = Reader::toLowercase(studentname);
         participantList->insertHead(studentname);
         runInner = true;
+
         while (runInner) {
             displayRegisteredStudentOption();
             int choice;

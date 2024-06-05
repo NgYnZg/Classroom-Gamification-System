@@ -77,7 +77,7 @@ public:
 	}
 
 };
-void recordAnswer(Question3* q, int studentid, string studentanswer, bool discarded) {
+int recordAnswer(Question3* q, int studentid, string studentanswer, bool discarded) {
 	q->studentid = studentid;
 	q->studentanswer = studentanswer;
 
@@ -94,4 +94,6 @@ void recordAnswer(Question3* q, int studentid, string studentanswer, bool discar
 	else {
 		q->studentscore = 0;
 	}
+
+	return q->questionscore;
 }

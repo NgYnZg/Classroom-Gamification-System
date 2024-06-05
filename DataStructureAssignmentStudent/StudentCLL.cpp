@@ -182,9 +182,9 @@ CLLnode* StudentCLL::search(string name) {
 }
 
 //Inserting student score
-void StudentCLL::score(CLLnode* current, int questionid, double score) {
-	current->student->totalScore += score;
-	current->student->answered->enqueue(questionid);
+void CLLnode::score(int questionid, int score) {
+	this->student->totalScore += score;
+	this->student->answered->enqueue(questionid);
 }
 
 //Display list
