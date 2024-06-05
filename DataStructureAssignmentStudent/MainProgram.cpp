@@ -104,6 +104,7 @@ void gameInterface(StudentCLL* participantList) {
                 string studentanswer;
                 getline(cin, studentanswer);
                 Question3* q = new Question3(cardToAnswer->question, cardToAnswer->answer, cardToAnswer->questionid, cardToAnswer->questionscore);
+
                 int scored = recordAnswer(q, studentid, studentanswer, true);
                 answeredStack->push(q);
                 currentStudent->score(q->questionid, scored);
@@ -130,10 +131,11 @@ void gameInterface(StudentCLL* participantList) {
         default:
             cout << "Invalid choice. Please try again." << endl;
         }
+      
         currentStudent = currentStudent->next;
-        if (currentStudent == participantList->getTail()) {
+        if (currentStudent == participantList->getHead())
             round++;
-        }
+
     }
 }
 

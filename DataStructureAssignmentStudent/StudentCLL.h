@@ -12,6 +12,7 @@ struct Student {
 
 	Student();
 	Student(int studentid, string name);
+
 };
 
 struct CLLnode {
@@ -25,7 +26,7 @@ struct CLLnode {
 	/// Adding totalScore of the student that has answered or discared the question,
 	/// enqueue the question id into the answered queue of the student.
 	/// </summary>
-	/// <param name="current"> Current node of answering student </param>
+  /// <param name="questionid"></param>
 	/// <param name="score"> Scored points</param>
 	void score(int questionid, int score);
 };
