@@ -15,12 +15,15 @@ private:
 
 public:
     // Constructor
-    Search(AnsweredStack* aStack, StudentCLL* sCLL, StudentAnswered* sAnswered)
-        : answeredStack(aStack), studentCLL(sCLL), studentAnswered(sAnswered) {}
+    Search() : answeredStack(nullptr), studentCLL(nullptr) {}
+
+    Search(AnsweredStack* aStack, StudentCLL* sCLL)
+        : answeredStack(aStack), studentCLL(sCLL){}
 
     // Search for a student's overall score and answered questions
     void searchStudent(int studentId) {
         CLLnode* studentNode = studentCLL->search(studentId);
+        StudentAnswered* sAnswered = studentNode->student->answered;
         if (studentNode == nullptr) {
             cout << "Student not found." << endl;
             return;
@@ -69,7 +72,7 @@ private:
 
     // Search for and display a student's answered questions
     void displayAnsweredQuestions(int studentId) {
-        Question* current = answeredStack->peek();
+        Question3* current = answeredStack->peek();
         int questionCount = 0;
         while (current != nullptr && questionCount < 3) {
             if (current->studentid == studentId) {
@@ -81,7 +84,8 @@ private:
     }
 
     // Display a student's answered question
-    void displayAnsweredQuestion(Question* question) {
+    void displayAnsweredQuestion(Question3* question) {
+        cout << "--------------------------------------------------------------------------------------------------------------" << endl;
         cout << "Question ID: " << question->questionid << "\n";
         cout << "Question: " << question->question << "\n";
         cout << "Correct Answer: " << question->answer << "\n";
@@ -94,7 +98,7 @@ private:
 
 class StudentSearch {
 private:
-    TopStudentTree& topStudentsTree;
+    TopStudentTree* topStudentsTree;
     // Helper function to perform an inorder traversal and collect nodes in an array
     void inorderTraversal(TreeNode* node, TreeNode** nodes, int& index, int maxSize) {
         if (node == nullptr || index >= maxSize) return;
@@ -108,7 +112,7 @@ private:
     void sortNodesByScore(TreeNode** nodes, int size) {
         for (int i = 0; i < size - 1; ++i) {
             for (int j = 0; j < size - i - 1; ++j) {
-                if (nodes[j]->totalScore < nodes[j + 1]->totalScore) {
+                if (nodes[j]->student->totalScore < nodes[j + 1]->student->totalScore) {
                     TreeNode* temp = nodes[j];
                     nodes[j] = nodes[j + 1];
                     nodes[j + 1] = temp;
@@ -117,18 +121,18 @@ private:
         }
     }
 public:
-    StudentSearch(TopStudentTree& tree) : topStudentsTree(tree) {}
+    StudentSearch(TopStudentTree* tree) : topStudentsTree(tree) {}
     bool isTop30Winner(int studentid) {
         const int maxSize = 1000; // Assuming we won't have more than 1000 students
         TreeNode* nodes[maxSize];
         int index = 0;
-        inorderTraversal(topStudentsTree.getRoot(), nodes, index, maxSize);
+        inorderTraversal(topStudentsTree->getRoot(), nodes, index, maxSize);
         // Sort nodes by totalScore in descending order
         sortNodesByScore(nodes, index);
         // Check if the student's ID is within the top 30 nodes
         int limit = (index < 30) ? index : 30;
         for (int i = 0; i < limit; ++i) {
-            if (nodes[i]->studentid == studentid) {
+            if (nodes[i]->student->studentid == studentid) {
                 return true;
             }
         }

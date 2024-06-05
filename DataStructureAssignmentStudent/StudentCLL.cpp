@@ -47,6 +47,7 @@ void StudentCLL::insertHead(string studentname) {
 	//1. if no nodes in the CLL
 	if (this->head == NULL) {
 		this->head = this->tail = newNode;
+		tail->next = head;
 		return;
 	}
 	//2. if node exist in the CLL	steps: point newnode.next to head -> make newnode the new head -> connect tail to the new head
