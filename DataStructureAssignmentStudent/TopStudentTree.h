@@ -2,7 +2,6 @@
 #include "StudentCLL.h"
 #include <string>
 
-using namespace std;
 
 struct TreeNode {
     Student* student;
@@ -19,6 +18,7 @@ public:
 
     TopStudentTree();
     TopStudentTree(string treeName);
+
     TreeNode* getRoot();
 
     /// <summary>
@@ -29,10 +29,5 @@ public:
     /// <param name="totalScore"></param>
     void insertNewNode(Student* student);
 
-    /// <summary>
-    /// Printing the tree in an inorder traversal
-    /// </summary>
-    /// <param name="current">Root of the tree; </param>
-    void reverse_inorder(TreeNode* current);
     ~TopStudentTree();
 };

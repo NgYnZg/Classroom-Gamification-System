@@ -12,7 +12,7 @@
 
 
 void displayMenu() {
-    cout << "_________________________________________________________________________________________________________" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "1. View and Answer Questions from Unanswered Deck" << endl;
     cout << "2. View and Answer Questions from Discarded Deck" << endl;
     cout << "3. Display Answered Questions" << endl;
@@ -21,14 +21,14 @@ void displayMenu() {
 
 
 void displayHome() {
-    cout << "_________________________________________________________________________________________________________" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "1. Lecturer" << endl;
     cout << "2. Student" << endl;
     cout << "3. Exit System" << endl;
 }
 
 void displayLectureHome() {
-    cout << "_________________________________________________________________________________________________________" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "1. Register Student" << endl;
     cout << "2. Display Students" << endl;
     cout << "3. Start the game" << endl;
@@ -37,7 +37,7 @@ void displayLectureHome() {
     cout << "6. Exit" << endl;
 }
 void displayRegisteredStudentOption() {
-    cout << "_________________________________________________________________________________________________________" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "1. Register More Student" << endl;
     cout << "2. Delete Last Created Student" << endl;
     cout << "3. Back" << endl;
@@ -71,20 +71,19 @@ Search* gameInterface(StudentCLL* participantList) {
             do{
                 cout << "Do you want to answer this question? (yes/no): ";
                 getline(cin, answerChoice);
-                answerChoice = Reader::toLowercase(answerChoice);
-            } while(!(answerChoice == "yes" || answerChoice == "y" || answerChoice == "no" || answerChoice == "n"));
-            if (answerChoice == "yes" || answerChoice == "y") {
+                answerChoice = Reader::toUppercase(answerChoice);
+            } while(!(answerChoice == "YES" || answerChoice == "Y" || answerChoice == "NO" || answerChoice == "N"));
+            if (answerChoice == "YES" || answerChoice == "Y") {
                 cout << "Enter your answer: ";
                 string studentanswer;
                 getline(cin, studentanswer);
-
-
+                studentanswer = Reader::toUppercase(studentanswer);
                 Question3* q2 = new Question3(q->question, q->answer, q->questionid, q->questionscore);
                 int scored = recordAnswer(q2, studentid, studentanswer, false);
                 answeredStack->push(q2);
                 currentStudent->score(q->questionid, scored);
             }
-            else if (answerChoice == "no" || answerChoice == "n") {
+            else if (answerChoice == "NO" || answerChoice == "N") {
                 // Discard the question
                 Question2* discardedCard = new Question2(q->question, true, 0, q->questionid, q->answer, q->questionscore);
                 discardedDeck->discardCard(discardedCard);
@@ -156,9 +155,22 @@ TopStudentTree* insertCLLintoBST(StudentCLL* participationList) {
     return winnerBST;
 }
 
+void displayreverse_inorder(TreeNode* current, Search* search) {
 
-void leaderboard(TopStudentTree* winnerBST) {
-    
+    if (current == NULL)
+        return;
+
+    // Traverse left subtree
+    displayreverse_inorder(current->left, search);
+
+    search->searchLeaderboardStudent(current->student->studentid);
+    // Traverse right subtree
+    displayreverse_inorder(current->right, search);
+
+}
+
+void leaderboard(TopStudentTree* winnerBST, Search* searchList) {
+    displayreverse_inorder(winnerBST->getRoot(), searchList);
 }
 
 void winnerChart(TopStudentTree* winnerBST) {
@@ -168,18 +180,18 @@ void winnerChart(TopStudentTree* winnerBST) {
 void registerStudentInterface(StudentCLL* participantList) {
     bool run = true, runInner;
     while(run){
-        cout << "_________________________________________________________________________________________________________" << endl;
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
         cout << "Enter student name: ";
         string studentname;
         getline(cin, studentname);
-        studentname = Reader::toLowercase(studentname);
+        studentname = Reader::toUppercase(studentname);
         participantList->insertHead(studentname);
         runInner = true;
 
         while (runInner) {
             displayRegisteredStudentOption();
             int choice;
-            cout << "_________________________________________________________________________________________________________" << endl;
+            cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
             cout << "Enter your choice: ";
             cin >> choice;
             cin.ignore();
@@ -215,7 +227,7 @@ Search* lecturerHomeInterface() {
         int choice;
         displayLectureHome(); //Register student, display students, start the game, leaderboard, winner chart, exit
         cout << endl;
-        cout << "_________________________________________________________________________________________________________" << endl;
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
         cin.ignore();
@@ -232,7 +244,7 @@ Search* lecturerHomeInterface() {
             break;
         case 4:
             studentBST = insertCLLintoBST(participantList); 
-            leaderboard(studentBST); //leaderboard
+            leaderboard(studentBST, searchList); //leaderboard
             break;
         case 5:
             studentBST = insertCLLintoBST(participantList); 
@@ -251,6 +263,13 @@ Search* lecturerHomeInterface() {
 
 
 void studentHomeInterface(Search* search) {
+
+    cout << "Enter student id: ";
+    int studentid;
+    cin >> studentid;
+    cin.ignore();
+    search->searchStudent(studentid);
+
     if (search == NULL) {
         int choice = 0;
         while (choice != 1) {
@@ -258,16 +277,10 @@ void studentHomeInterface(Search* search) {
             cout << "Enter 1 to Exit";
             cin >> choice;
             cin.ignore();
-            cout << "_________________________________________________________________________________________________________" << endl;
+            cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
         }
         return;
     }
-    cout << "Enter student id: ";
-    int studentid;
-    cin >> studentid;
-    cin.ignore();
-    search->searchStudent(studentid);
-
 }
 
 

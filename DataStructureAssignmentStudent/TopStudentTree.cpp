@@ -1,12 +1,12 @@
 #include "TopStudentTree.h"
 #include <iostream>
-#include "StudentCLL.h"
 
-using namespace std;
+
 
 TopStudentTree::TopStudentTree() {
     this->treeName = "";
 }
+
 
 TopStudentTree::TopStudentTree(string treeName) {
     this->treeName = treeName;
@@ -64,33 +64,6 @@ void TopStudentTree::insert(TreeNode* parent, TreeNode* newnode) {
 }
 
 
-
-void TopStudentTree::reverse_inorder(TreeNode* current) {
-
-    if (current == NULL)
-        return;
-
-    // Traverse left subtree
-    reverse_inorder(current->left);
-
-    // Visit node
-    cout << "\t---------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "\t" << "|" << "Student ID" << "\t|" << "Student Name" << "\t|" << "Total Score" << "\t|" << "Questions" << "\t|" << endl;
-
-    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "\t" << "|\t" << current->student->studentid << "\t|\t" << current->student->name << "\t|\t" << current->student->name << "\t|\t" << current->student->name << "\t|" << endl;
-
-    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "\t" << "|\t" << "Question id" << "\t|\t" << "Question" << "\t|\t" << "Correct Answer" << "\t|\t" << "Given Answer" << "\t|" << "Score" << "\t|" << endl;
-    
-    while(true){
-        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "\t" << "|\t" << current->student->studentid << "\t|" << current->student->name << "\t|" << current->student->name << "\t|" << current->student->name << "\t";
-    }
-    // Traverse right subtree
-    reverse_inorder(current->right);
-
-}
 
 TopStudentTree::~TopStudentTree() {
     cout << "Tree " << treeName << " has been deleted!" << endl;
