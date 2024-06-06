@@ -1,4 +1,5 @@
 #pragma once
+#include "Reader.h"
 #include <iostream>
 using namespace std;
 struct Question3
@@ -87,7 +88,7 @@ int recordAnswer(Question3* q, int studentid, string studentanswer, bool discard
 	q->discarded = discarded;
 
 	// Check if the answer is correct
-	if (q->answer == studentanswer) {
+	if (q->answer == Reader::toUppercase(studentanswer)) {
 		if (discarded) {
 			q->studentscore = static_cast<int>(q->questionscore * 0.8);
 		}
@@ -100,5 +101,5 @@ int recordAnswer(Question3* q, int studentid, string studentanswer, bool discard
 		q->studentscore = 0;
 	}
 
-	return q->questionscore;
+	return q->studentscore;
 }

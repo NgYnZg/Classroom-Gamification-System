@@ -194,6 +194,7 @@ void StudentCLL::display() {
 
 	cout << "Students: " << endl;
 	do {
+		cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "Student ID: " << current->student->studentid<< endl;
 		cout << "Total Score: " << current->student->totalScore << endl;
 		cout << "Student Name: " << current->student->name << endl;

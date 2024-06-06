@@ -9,8 +9,8 @@ class Reader {
 public:
     static void readQuestionsFromFile(LinkedList* list);
 
-    static string* splitString(string* strArray, string line, char separator);
+    static string* splitString(string* strArray, string line, char separator, int arrSize);
 
-    static string toLowercase(string str);
+    static string toUppercase(string str);
 };
 

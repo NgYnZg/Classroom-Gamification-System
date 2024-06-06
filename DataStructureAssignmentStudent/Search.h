@@ -1,5 +1,4 @@
 #pragma once
-
 #include "StudentAnswered.h"
 #include "StudentCLL.h"
 #include "TopStudentTree.h"
@@ -19,6 +18,28 @@ public:
 
     Search(AnsweredStack* aStack, StudentCLL* sCLL)
         : answeredStack(aStack), studentCLL(sCLL){}
+    
+    // Search for and display a student's answered questions
+    void displayAnsweredQuestions(int studentId) {
+        Question3* current = answeredStack->peek();
+        while (current != nullptr ) {
+            if (current->studentid == studentId) {
+                displayAnsweredQuestion(current);
+            }
+            current = current->next; // Move to the next question in the stack
+        }
+    } 
+    // Search for and display a student's answered questions
+    void displayLeaderboardAnsweredQuestions(int studentId) {
+        Question3* current = answeredStack->peek();
+        while (current != nullptr) {
+            if (current->studentid == studentId) {
+                displayLeaderboardAnsweredQuestion(current);
+            }
+            current = current->next; // Move to the next question in the stack
+        }
+    } 
+
 
     // Search for a student's overall score and answered questions
     void searchStudent(int studentId) {
@@ -36,6 +57,24 @@ public:
         displayAnsweredQuestions(studentId);
         cout << "Overall Score: " << studentNode->student->totalScore << endl;
     }
+    // Search for a student's overall score and answered questions
+    void searchLeaderboardStudent(int studentId) {
+        CLLnode* studentNode = studentCLL->search(studentId);
+        StudentAnswered* sAnswered = studentNode->student->answered;
+        if (studentNode == nullptr) {
+            cout << "Student not found." << endl;
+            return;
+        }
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "" << "|" << "Student ID" << "\t|" << "Student Name" << "\t|" << "Total Score" << "\t|" << "Questions" << "\t|" << endl;
+
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "" << "|\t" << studentNode->student->studentid << "\t|\t" << studentNode->student->name << "\t|\t" << studentNode->student->totalScore << "\t|" << endl;
+
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+        displayLeaderboardAnsweredQuestions(studentId);
+    }
+
 
 private:
     // Display the student's ranking
@@ -70,22 +109,11 @@ private:
         }
     }
 
-    // Search for and display a student's answered questions
-    void displayAnsweredQuestions(int studentId) {
-        Question3* current = answeredStack->peek();
-        int questionCount = 0;
-        while (current != nullptr && questionCount < 3) {
-            if (current->studentid == studentId) {
-                displayAnsweredQuestion(current);
-                ++questionCount;
-            }
-            current = current->next; // Move to the next question in the stack
-        }
-    }
+
 
     // Display a student's answered question
     void displayAnsweredQuestion(Question3* question) {
-        cout << "--------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
         cout << "Question ID: " << question->questionid << "\n";
         cout << "Question: " << question->question << "\n";
         cout << "Correct Answer: " << question->answer << "\n";
@@ -94,6 +122,19 @@ private:
         cout << "Student Score: " << question->studentscore << "\n";
         cout << "Discarded: " << (question->discarded ? "Yes" : "No") << "\n\n";
     }
+
+    // Display a student's answered question
+    void displayLeaderboardAnsweredQuestion(Question3* question) {
+        cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "|\tQuestion ID: " << question->questionid << "\t\t|\n";
+        cout << "Question: " << question->question << "\n";
+        cout << "|\tCorrect Answer: " << question->answer << "\t|\n";
+        cout << "|\tStudent Answer: " << question->studentanswer << "\t|\n";
+        cout << "|\tOriginal Score: " << question->questionscore << "\t|\n";
+        cout << "|\tStudent Score: " << question->studentscore << "\t|\n";
+        cout << "|\tDiscarded: " << (question->discarded ? "Yes" : "No") << "\t\t|\n";
+    }
+
 };
 
 class StudentSearch {
@@ -138,5 +179,6 @@ public:
         }
         return false;
     }
+
 };
 
