@@ -1,9 +1,9 @@
 #pragma once
-#include "StudentAnswered.h"
-#include "StudentCLL.h"
-#include "TopStudentTree.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentAnswered.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentCLL.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_TopStudentTree.h"
 #include <iostream>
-#include "answered.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960__answered.h"
 using namespace std;
 
 class Search {

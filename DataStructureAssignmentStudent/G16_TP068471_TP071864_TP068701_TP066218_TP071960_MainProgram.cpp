@@ -1,12 +1,12 @@
 
-#include "StudentCLL.h"
-#include "TopStudentTree.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentCLL.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_TopStudentTree.h"
 #include <iostream>
-#include "DiscardedDeck.h"
-#include "answered.h"
-#include "LinkedList.h"
-#include "Reader.h"
-#include "Search.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_DiscardedDeck.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960__answered.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_LinkedList.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_Reader.h"
+#include "G16_TP068471_TP071864_TP068701_TP066218_TP071960_Search.h"
 
 
 
@@ -57,26 +57,26 @@ Search* gameInterface(StudentCLL* participantList) {
     
     while (round < 3 && unansweredDeck->peek() != NULL){
         int studentid = currentStudent->student->studentid;
-        int choice = 1;
+        int choice;
 
         displayMenu();
         cout << "Student " << currentStudent->student->name << endl;
-        /*cout << "Enter your choice: ";   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        cout << "Enter your choice: ";
         cin >> choice;
-        cin.ignore(); */
+        cin.ignore();
         switch (choice) {
         case 1: {
             Question1* q = unansweredDeck->displayAndRemoveFirstQuestion();
             string answerChoice;
             do{
-                /*cout << "do you want to answer this question? (yes/no): "; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                getline(cin, answerchoice);*/
-                answerChoice = Reader::toUppercase("Y");
+                cout << "do you want to answer this question? (yes/no): ";
+                getline(cin, answerChoice);
+                answerChoice = Reader::toUppercase(answerChoice);
             } while(!(answerChoice == "YES" || answerChoice == "Y" || answerChoice == "NO" || answerChoice == "N"));
             if (answerChoice == "YES" || answerChoice == "Y") {
                 cout << "Enter your answer: ";
-                string studentanswer = "a";
-                /*getline(cin, studentanswer);*/
+                string studentanswer;
+                getline(cin, studentanswer);
                 studentanswer = Reader::toUppercase(studentanswer);
                 Question3* q2 = new Question3(q->question, q->answer, q->questionid, q->questionscore);
                 int scored = recordAnswer(q2, studentid, studentanswer, false);
@@ -362,63 +362,3 @@ int main() {
     return 0;
 }
 
-
-
-/* Testing for Student Lists
-
-//Initializing a Circular Linked List called tutorial1
-StudentCLL* tutorial1 = new StudentCLL("tutorial1");
-
-//Inserting nodes by stating the student names
-//Insert from head
-tutorial1->insertHead("B");
-tutorial1->insertHead("A");
-
-//Insert from tail
-tutorial1->insertTail("Z");
-
-//Displaying the total names and scores of the students
-tutorial1->display();
-
-//Printing the size of the list
-cout << "List size: " << tutorial1->getSize() << endl;
-
-//getting the node of certain student from the list
-CLLnode* student = tutorial1->search("B");
-
-//Printing the name of the student
-cout << "Student id of " << student->student->name << " : " << student->student->studentid << endl;
-
-//Inserting score of the student
-tutorial1->score(student, 0, 20);
-tutorial1->score(student, 1, 0);
-
-	
-//Printing the first question id of the questions answered by the student
-cout << student->student->answered->peek()->questionid << endl;
-//Move the list into the next one
-student->student->answered->dequeue();
-//Print the second question id
-cout << student->student->answered->peek()->questionid << endl;
-	
-
-
-//Displaying the whole list again
-cout << endl;
-cout << endl;
-cout << endl;
-tutorial1->display();
-
-
-TopStudentTree* winnerBST = new TopStudentTree("Winner Tree");
-CLLnode* current = tutorial1->getHead();
-do
-{
-	winnerBST->insertNewNode(current->student->studentid, current->student->name, current->student->totalScore);
-	cout << "Students in tree: " << current->student->name << endl;
-	current = current->next;
-} while (current != tutorial1->getHead());
-
-
-winnerBST->inorder(winnerBST->getRoot());
-*/

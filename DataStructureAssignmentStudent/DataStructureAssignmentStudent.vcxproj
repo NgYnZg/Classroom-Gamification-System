@@ -127,24 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="answered.h" />
-    <ClInclude Include="DiscardedDeck.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Reader.h" />
-    <ClInclude Include="Search.h" />
-    <ClInclude Include="StudentAnswered.h" />
-    <ClInclude Include="StudentCLL.h" />
-    <ClInclude Include="TopStudentTree.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960__answered.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_DiscardedDeck.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_LinkedList.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_Reader.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_Search.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentAnswered.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentCLL.h" />
+    <ClInclude Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_TopStudentTree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DiscardedDeck.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="LinkedList.cpp" />
-    <ClCompile Include="MainProgram.cpp" />
-    <ClCompile Include="Reader.cpp" />
-    <ClCompile Include="StudentAnswered.cpp" />
-    <ClCompile Include="StudentCLL.cpp" />
-    <ClCompile Include="TopStudentTree.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_DiscardedDeck.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_LinkedList.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_MainProgram.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_Reader.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentAnswered.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_StudentCLL.cpp" />
+    <ClCompile Include="G16_TP068471_TP071864_TP068701_TP066218_TP071960_TopStudentTree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
