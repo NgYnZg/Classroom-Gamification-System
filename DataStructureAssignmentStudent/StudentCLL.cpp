@@ -134,23 +134,20 @@ CLLnode* StudentCLL::deleteNode(string name) {
 
 //Search node using studentid
 CLLnode* StudentCLL::search(int studentid) {
-	CLLnode* prev, * current = head;
+	CLLnode* current = head;
 
 	if (head->student->studentid == studentid) {
 		return head;
 	}
 
 	//Loop through the list to find the matched student node
-	prev = current;
 	current = current->next;
 	while (current != head) {
 		//Steps: search through the node to find the node with matched studentid
 		if (current->student->studentid == studentid) {
-			prev->next = current->next;
 			return current;
 		}
 		//Incrementing node index
-		prev = current;
 		current = current->next;
 	}
 	cout << "Student id does not exist!!" << endl;
@@ -161,13 +158,12 @@ CLLnode* StudentCLL::search(int studentid) {
 
 //Search node using name
 CLLnode* StudentCLL::search(string name) {
-	CLLnode* prev, * current;
+	CLLnode* current;
 
 	if (head->student->name == name) {
 		return head;
 	}
 	//Loop through the list to find the matched student node
-	prev = head;
 	current = head->next;
 	while (current != head) {
 		//Steps: search through the node to find the node with matched studentid
@@ -175,7 +171,6 @@ CLLnode* StudentCLL::search(string name) {
 			return current;
 		}
 		//Incrementing node index
-		prev = current;
 		current = current->next;
 	}
 	cout << "Student name does not exist!!" << endl;
