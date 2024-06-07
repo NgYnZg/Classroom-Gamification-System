@@ -178,10 +178,3 @@ private:
         return false;
     }
 };
-
-class StudentSearch {
-private:
-    
-
-};
-

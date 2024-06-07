@@ -33,7 +33,6 @@ void StudentAnswered::enqueue(int questionid) {
 		rear = newSTQNode;
 	}
 	size++;
-
 }
 
 
