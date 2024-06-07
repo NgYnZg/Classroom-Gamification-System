@@ -60,7 +60,8 @@ public:
 	StudentCLL(string cllName);
 
 	/// <summary>
-	/// Creating a new Circular Linked List (CLL) node based on the student's name and inserting the node into the list
+	/// Creating a new Circular Linked List (CLL) node based on the student's name 
+	///  and inserting the node into the list
 	/// </summary>
 	/// <param name="studentname"></param>
 	void insertHead(string name);
@@ -69,14 +70,7 @@ public:
 	/// Deletion of Circular Linked List (CLL) node at the head
 	/// </summary>
 	/// <returns name="deletedStudent"></returns>
-	CLLnode* deleteHead();
-
-	/// <summary>
-	/// Deletion of Circular Linked List (CLL) node based on student name
-	/// </summary>
-	/// <param name="studentid"></param>
-	/// <returns name="deletedStudent"></returns>
-	CLLnode* deleteNode(string name);
+	void deleteHead();
 
 	/// <summary>
 	/// Searching Circular Linked List (CLL) node using studentid

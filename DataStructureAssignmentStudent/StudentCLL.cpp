@@ -50,7 +50,8 @@ void StudentCLL::insertHead(string studentname) {
 		tail->next = head;
 		return;
 	}
-	//2. if node exist in the CLL	steps: point newnode.next to head -> make newnode the new head -> connect tail to the new head
+	//2. if node exist in the CLL
+	// steps: point newnode.next to head -> make newnode the new head -> connect tail to the new head
 	newNode->next = head;
 	head = newNode;
 	tail->next = head;
@@ -58,13 +59,13 @@ void StudentCLL::insertHead(string studentname) {
 
 
 //Delete node from tail
-CLLnode* StudentCLL::deleteHead() {
+void StudentCLL::deleteHead() {
 	CLLnode* current = head;
 
 	//If list have is empty
 	if (head == nullptr) {
 		cout << "There is no node to delete!!" << endl;
-		return NULL;
+		return;
 	}
 
 	//If the list only contains one node
@@ -72,7 +73,8 @@ CLLnode* StudentCLL::deleteHead() {
 		head = tail = nullptr;
 		current->next = nullptr;
 		size--;
-		return current;
+		delete current;
+		return;
 	}
 	else {
 	//If the list contains more than one node
@@ -80,56 +82,8 @@ CLLnode* StudentCLL::deleteHead() {
 	tail->next = head;
 	current->next = nullptr;
 	size--;
-	return current;
+	return;
 	}
-}
-
-//Delete node using name
-CLLnode* StudentCLL::deleteNode(string name) {
-	CLLnode* prev, * current = head;
-
-	//If list have is empty
-	if (head == nullptr) {
-		cout << "There is no node to delete!!" << endl;
-		return new CLLnode;
-	}
-
-	//If head of the list is to be deleted
-	if (head->student->name == name) {
-		//If the list only contains one node
-		if (head == tail)
-		{
-			head = tail = nullptr;
-			current->next = nullptr;
-			size--;
-			return current;
-		}
-		//If the list contains more than one node
-		head = head->next;
-		tail->next = head;
-		current->next = nullptr;
-		size--;
-		return current;
-	}
-
-	//Loop through the list to find the matched student node
-	prev = current;
-	current = current->next;
-	while (current != head) {
-		//Steps: search through the node to find the node with matched studentid
-		if (current->student->name == name) {
-			prev->next = current->next;
-			current->next = nullptr;
-			size--;
-			return current;
-		}
-		//Incrementing node index
-		prev = current;
-		current = current->next;
-	}
-
-	cout << "Student name does not exist!!" << endl;
-	return new CLLnode;
 }
 
 //Search node using studentid
