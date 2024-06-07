@@ -11,6 +11,7 @@ private:
     AnsweredStack* answeredStack;
     StudentCLL* studentCLL;
     StudentAnswered* studentAnswered;
+    TopStudentTree* topStudentsTree;
 
 public:
     // Constructor
@@ -18,7 +19,10 @@ public:
 
     Search(AnsweredStack* aStack, StudentCLL* sCLL)
         : answeredStack(aStack), studentCLL(sCLL){}
-    
+
+    void setTopStudent(TopStudentTree* tree) {
+        this->topStudentsTree = tree;
+    }
     // Search for and display a student's answered questions
     void displayAnsweredQuestions(int studentId) {
         Question3* current = answeredStack->peek();
@@ -45,6 +49,8 @@ public:
     void searchStudent(int studentId) {
         CLLnode* studentNode = studentCLL->search(studentId);
         StudentAnswered* sAnswered = studentNode->student->answered;
+        string result = isTop30Winner(studentNode->student->studentid) ? "Yes" : "No";
+
         if (studentNode == nullptr) {
             cout << "Student not found." << endl;
             return;
@@ -52,7 +58,7 @@ public:
 
         cout << "Student ID: " << studentNode->student->studentid << endl;
         cout << "Student Name: " << studentNode->student->name << endl;
-
+        cout << "Is in top 30?: " << result << endl;
         displayStudentRanking(studentNode);
         displayAnsweredQuestions(studentId);
         cout << "Overall Score: " << studentNode->student->totalScore << endl;
@@ -66,10 +72,10 @@ public:
             return;
         }
         cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "" << "|" << "Student ID" << "\t|" << "Student Name" << "\t|" << "Total Score" << "\t|" << "Questions" << "\t|" << endl;
-
+        cout << "" << "|" << "Student ID" << "\t|" << "Student Name" << "\t|" << "Total Score" << "\t|" << "Top 30?" << "\t|" << endl;
+        string result = isTop30Winner(studentNode->student->studentid) ? "Yes" : "No";
         cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "" << "|\t" << studentNode->student->studentid << "\t|\t" << studentNode->student->name << "\t|\t" << studentNode->student->totalScore << "\t|" << endl;
+        cout << "" << "|\t" << studentNode->student->studentid << "\t|\t" << studentNode->student->name << "\t|\t" << studentNode->student->totalScore << "\t|\t"<< result << "\t|" << endl;
 
         cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
         displayLeaderboardAnsweredQuestions(studentId);
@@ -134,12 +140,6 @@ private:
         cout << "|\tStudent Score: " << question->studentscore << "\t|\n";
         cout << "|\tDiscarded: " << (question->discarded ? "Yes" : "No") << "\t\t|\n";
     }
-
-};
-
-class StudentSearch {
-private:
-    TopStudentTree* topStudentsTree;
     // Helper function to perform an inorder traversal and collect nodes in an array
     void inorderTraversal(TreeNode* node, TreeNode** nodes, int& index, int maxSize) {
         if (node == nullptr || index >= maxSize) return;
@@ -161,8 +161,6 @@ private:
             }
         }
     }
-public:
-    StudentSearch(TopStudentTree* tree) : topStudentsTree(tree) {}
     bool isTop30Winner(int studentid) {
         const int maxSize = 1000; // Assuming we won't have more than 1000 students
         TreeNode* nodes[maxSize];
@@ -179,6 +177,11 @@ public:
         }
         return false;
     }
+};
+
+class StudentSearch {
+private:
+    
 
 };
 
