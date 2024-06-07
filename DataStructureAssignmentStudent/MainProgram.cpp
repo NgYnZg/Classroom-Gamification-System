@@ -57,26 +57,26 @@ Search* gameInterface(StudentCLL* participantList) {
     
     while (round < 3 && unansweredDeck->peek() != NULL){
         int studentid = currentStudent->student->studentid;
-        int choice;
+        int choice = 1;
 
         displayMenu();
         cout << "Student " << currentStudent->student->name << endl;
-        cout << "Enter your choice: ";
+        /*cout << "Enter your choice: ";   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         cin >> choice;
-        cin.ignore();
+        cin.ignore(); */
         switch (choice) {
         case 1: {
             Question1* q = unansweredDeck->displayAndRemoveFirstQuestion();
             string answerChoice;
             do{
-                cout << "Do you want to answer this question? (yes/no): ";
-                getline(cin, answerChoice);
-                answerChoice = Reader::toUppercase(answerChoice);
+                /*cout << "do you want to answer this question? (yes/no): "; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                getline(cin, answerchoice);*/
+                answerChoice = Reader::toUppercase("Y");
             } while(!(answerChoice == "YES" || answerChoice == "Y" || answerChoice == "NO" || answerChoice == "N"));
             if (answerChoice == "YES" || answerChoice == "Y") {
                 cout << "Enter your answer: ";
-                string studentanswer;
-                getline(cin, studentanswer);
+                string studentanswer = "a";
+                /*getline(cin, studentanswer);*/
                 studentanswer = Reader::toUppercase(studentanswer);
                 Question3* q2 = new Question3(q->question, q->answer, q->questionid, q->questionscore);
                 int scored = recordAnswer(q2, studentid, studentanswer, false);
@@ -160,21 +160,54 @@ void displayreverse_inorder(TreeNode* current, Search* search) {
     if (current == NULL)
         return;
 
-    // Traverse left subtree
-    displayreverse_inorder(current->left, search);
-
-    search->searchLeaderboardStudent(current->student->studentid);
     // Traverse right subtree
     displayreverse_inorder(current->right, search);
+
+    search->searchLeaderboardStudent(current->student->studentid);
+    // Traverse left subtree
+    displayreverse_inorder(current->left, search);
 
 }
 
 void leaderboard(TopStudentTree* winnerBST, Search* searchList) {
+    searchList->setTopStudent(winnerBST);
     displayreverse_inorder(winnerBST->getRoot(), searchList);
 }
 
-void winnerChart(TopStudentTree* winnerBST) {
+// Function to print binary tree in 2D
+// It does reverse inorder traversal
+void print2DUtil(TreeNode* root, int space)
+{
+    // Base case
+    if (root == NULL)
+        return;
 
+    // Increase distance between levels
+    space += 10;
+
+    // Process right child first
+    print2DUtil(root->right, space);
+
+    // Print current node after space
+    // count
+    cout << endl;
+    for (int i = 10; i < space; i++)
+        cout << " ";
+    cout << "Name: " << root->student->name <<" ( "<< root->student->totalScore <<" )" << "\n";
+
+    // Process left child
+    print2DUtil(root->left, space);
+}
+
+// Wrapper over print2DUtil()
+void print2D(TreeNode* root)
+{
+    // Pass initial space count as 0
+    print2DUtil(root, 0);
+}
+
+void winnerChart(TopStudentTree* winnerBST) {
+    print2D(winnerBST->getRoot());
 }
 
 void registerStudentInterface(StudentCLL* participantList) {
@@ -268,6 +301,7 @@ void studentHomeInterface(Search* search) {
     int studentid;
     cin >> studentid;
     cin.ignore();
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     search->searchStudent(studentid);
 
     if (search == NULL) {
