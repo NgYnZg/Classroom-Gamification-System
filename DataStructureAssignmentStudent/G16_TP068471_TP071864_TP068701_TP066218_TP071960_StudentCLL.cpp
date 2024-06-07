@@ -105,7 +105,7 @@ CLLnode* StudentCLL::search(int studentid) {
 		current = current->next;
 	}
 	cout << "Student id does not exist!!" << endl;
-	return new CLLnode();
+	return nullptr;
 }
 
 
@@ -128,7 +128,7 @@ CLLnode* StudentCLL::search(string name) {
 		current = current->next;
 	}
 	cout << "Student name does not exist!!" << endl;
-	return new CLLnode;
+	return nullptr;
 }
 
 //Inserting student score

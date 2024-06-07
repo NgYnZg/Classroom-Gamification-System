@@ -324,7 +324,7 @@ int main() {
 
     // select role
     // 1. lecturer
-    // 1.1 register student -> (register more, start the game)
+    // 1.1 register student -> (register more, delete last one)
     // 1.2 start the game
     // 1.2.1 loop through students
     // 
@@ -333,7 +333,6 @@ int main() {
     // 
     // 2. student (name)
     // 2.1 show in winner
-    // 2.2 show answered results (Optional)
     Search* searchList = new Search();
     bool run = true;
     while (run) {
