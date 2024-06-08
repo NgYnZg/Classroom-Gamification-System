@@ -10,7 +10,7 @@ A hierarchical chart displays the top 30 winners, and a detailed leaderboard sho
 ### Developpment Tools
 The system will be developed in Microsoft Visual Studio (2022 version or newer) and using C++ language.
 ### Retrictions
-Built-in containers such as <list>, <vector>, etc. are not allowed in this assignment.
+Built-in containers such as \<list\>, \<vector\>, etc. are not allowed in this assignment.
 All containers are self-created.
 Refer to the link: https://www.geeksforgeeks.org/containers-cpp-stl/ for further information on built-in
 containers in STL C++.
