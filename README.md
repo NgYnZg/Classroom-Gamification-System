@@ -7,7 +7,7 @@ Correct answers to unanswered questions earn full points, while correct answers 
 Players can accept or decline questions, and the game tracks their performance over three rounds. 
 A hierarchical chart displays the top 30 winners, and a detailed leaderboard shows scores and question details, helping identify strong and weak areas for students.
 
-### Developpment Tools
+### Development Tools
 The system will be developed in Microsoft Visual Studio (2022 version or newer) and using C++ language.
 ### Retrictions
 Built-in containers such as \<list\>, \<vector\>, etc. are not allowed in this assignment.
